@@ -51,7 +51,7 @@ public abstract class Entity
     /// <returns>A random attack value.</returns>
     public int Attack()
     {
-        var attack = new Attack(AttackPower);
+        var attack = new AttackAction(AttackPower);
         return attack.Execute();
     }
 }

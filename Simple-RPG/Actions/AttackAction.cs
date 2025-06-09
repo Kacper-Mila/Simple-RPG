@@ -1,6 +1,6 @@
 ﻿namespace Simple_RPG.Interfaces;
 
-public class Attack((int Min, int Max) attackPower) : IAction<int>
+public class AttackAction((int Min, int Max) attackPower) : IAction<int>
 {
     public int Execute()
     {
