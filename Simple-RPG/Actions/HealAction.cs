@@ -2,7 +2,7 @@
 
 using Simple_RPG.Entities;
 
-public class Heal(int healAmount, Entity target) : IAction<int>
+public class HealAction(int healAmount, Entity target) : IAction<int>
 {
     private readonly Entity _target = target ?? throw new ArgumentNullException(nameof(target));
 
