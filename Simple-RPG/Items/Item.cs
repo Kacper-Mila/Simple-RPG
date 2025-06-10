@@ -2,15 +2,20 @@
 
 namespace Simple_RPG.Items;
 
-public abstract class Item(string name, string description)
+public abstract class Item
 {
-    public string Name { get; } = name;
-    public string Description { get; } = description;
+    public string Name { get; }
+    public string Description { get; }
+
+    protected Item(string name, string description)
+    {
+        Name = name;
+        Description = description;
+    }
 
     /// <summary>
-    /// Uses the item on a target of type T.
+    /// Uses the item on a target entity.
     /// </summary>
-    /// <typeparam name="T">The type of the target.</typeparam>
     /// <param name="target">The target to use the item on.</param>
-    public abstract void Use<T>(Entity target) where T : class;
+    public abstract void Use(Entity target);
 }

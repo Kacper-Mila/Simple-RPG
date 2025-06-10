@@ -3,15 +3,20 @@
 using Simple_RPG.Interfaces;
 using Simple_RPG.Entities;
 
-public class HealthPotionItem(string name, string description, int healAmount) : Item(name, description)
+public class HealthPotionItem : Item
 {
-    private int HealAmount { get; } = healAmount;
+    private int HealAmount { get; }
 
-    public override void Use<T>(Entity target)
+    public HealthPotionItem(string name, string description, int healAmount) 
+        : base(name, description)
     {
-            var healAction = new HealAction(HealAmount, target);
-            healAction.Execute();
-            return;
+        HealAmount = healAmount;
+    }
 
+    public override void Use(Entity target)
+    {
+        var healAction = new HealAction(HealAmount, target);
+        int healedAmount = healAction.Execute();
+        Console.WriteLine($"Healed for {healedAmount} HP!");
     }
 }

@@ -7,7 +7,7 @@ namespace Simple_RPG;
 
 public sealed class Game
 {
-   private readonly Map _map = new Map(MapLoader.LoadMapFromFile("map1.txt"));
+    private readonly Map _map = new Map(MapLoader.LoadMapFromFile("map1.txt"));
     private PlayerEntity _player;
     private bool _gameOver = false;
 
@@ -32,9 +32,10 @@ public sealed class Game
             // Display player info above the map
             PlayerInfoUI.DisplayPlayerInfo(_player);
             
+            Console.WriteLine("\nMove with arrow keys, I = inventory, Q = exit");
+            
             _map.Draw();
             
-            Console.WriteLine("\nMove with arrow keys, Q = exit");
             var key = Console.ReadKey(true).Key;
 
             if (key == ConsoleKey.Q)
