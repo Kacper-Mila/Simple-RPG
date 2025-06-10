@@ -1,4 +1,5 @@
 ﻿using Simple_RPG.Entities;
+using Simple_RPG.Items;
 using Simple_RPG.UI;
 
 namespace Simple_RPG.Interfaces;
@@ -63,22 +64,38 @@ public class FightAction
         do
         {
             key = Console.ReadKey(true).Key;
-        } while (key != ConsoleKey.A && key != ConsoleKey.H);
+        } while (key != ConsoleKey.A && key != ConsoleKey.H && key != ConsoleKey.I);
         
         switch (key)
         {
             case ConsoleKey.A: // Attack
                 int damage = _player.Attack();
                 _enemy.TakeDamage(damage);
-                Console.WriteLine($"\nYou attack the {_enemy.Name} for {damage} damage!");
+                Console.WriteLine($"\nYou attack the {_enemy.Name} with your {_player.Inventory.EquippedWeapon.Name} for {damage} damage!");
                 break;
                 
-            case ConsoleKey.H: // Heal (if we implement inventory)
-                int healAmount = 20; // Fixed amount, could use items later
-                var healAction = new HealAction(healAmount, _player);
-                int actualHeal = healAction.Execute();
-                Console.WriteLine($"\nYou healed yourself for {actualHeal} HP!");
+            case ConsoleKey.H: // Use health potion from inventory
+                // Find first health potion
+                var potions = _player.Inventory.Items
+                    .Select((item, index) => new { Item = item, Index = index })
+                    .Where(x => x.Item is HealthPotionItem)
+                    .ToList();
+                
+                if (potions.Any())
+                {
+                    _player.Inventory.UseItem(potions.First().Index);
+                }
+                else
+                {
+                    Console.WriteLine("\nYou don't have any health potions!");
+                }
                 break;
+                
+            case ConsoleKey.I: // Open inventory
+                InventoryUI.Display(_player);
+                // Don't change turns if player opened inventory
+                _playerTurn = true;
+                return;
         }
         
         Thread.Sleep(1500);

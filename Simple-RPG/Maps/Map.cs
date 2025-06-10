@@ -1,5 +1,7 @@
 ﻿using Simple_RPG.Entities;
 using Simple_RPG.Interfaces;
+using Simple_RPG.Items;
+using Simple_RPG.Items.Utils;
 using Simple_RPG.Maps.fields;
 using Simple_RPG.UI;
 
@@ -84,6 +86,9 @@ public class Map
             case ConsoleKey.DownArrow: newY++; break;
             case ConsoleKey.LeftArrow: newX--; break;
             case ConsoleKey.RightArrow: newX++; break;
+            case ConsoleKey.I: // Open inventory
+                InventoryUI.Display(player);
+                return true;
         }
 
         if (!IsWalkable(newX, newY)) return true;
@@ -107,6 +112,21 @@ public class Map
             
             // If player won, remove the enemy from the map
             grid[newY, newX] = new Empty();
+        }
+        // Check if the new position is an item
+        else if (grid[newY, newX] is ItemTile)
+        {
+            // Generate a random item
+            Item item = ItemFactory.CreateRandomItem();
+            
+            // Display item pickup prompt
+            bool takeItem = InventoryUI.DisplayItemPickup(item);
+            
+            if (takeItem)
+            {
+                player.Inventory.AddItem(item);
+                grid[newY, newX] = new Empty(); // Remove item from map
+            }
         }
         
         // Move player to new position
