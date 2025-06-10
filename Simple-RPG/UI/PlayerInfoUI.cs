@@ -21,7 +21,6 @@ public class PlayerInfoUI
         DrawBoxContent($"Attack Power: {player.AttackPower.Min}-{player.AttackPower.Max}");
         DrawBoxLine("╚", "═", "╝");
         Console.ResetColor();
-        Console.WriteLine();
     }
     
     private static void DrawHealthBar(int currentHP, int maxHP, int barLength)

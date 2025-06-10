@@ -14,6 +14,13 @@ public abstract class WeaponItem : Item
     
     public override void Use(Entity target)
     {
-        Console.WriteLine("This is a weapon and must be equipped first.");
+        if (target is PlayerEntity player)
+        {
+            player.Inventory.EquipWeapon(this);
+        }
+        else
+        {
+            Console.WriteLine("This weapon can only be equipped by a player.");
+        }
     }
 }

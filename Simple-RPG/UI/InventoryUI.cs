@@ -34,7 +34,14 @@ public static class InventoryUI
         {
             for (int i = 0; i < items.Count; i++)
             {
-                DrawBoxContent($"{i + 1}. {items[i].Name}");
+                var itemDescription = items[i] is WeaponItem weaponItem ? 
+                    $"{weaponItem.DamageRange.Min}-{weaponItem.DamageRange.Max}" :
+                    $"{items[i].Description}";
+
+                DrawBoxContent(
+                        $"{i + 1}. {items[i].Name} ({itemDescription})",
+                        centered: false
+                    );
             }
         }
 

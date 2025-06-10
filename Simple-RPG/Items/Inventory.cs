@@ -35,6 +35,12 @@ public class Inventory
     
     public void EquipWeapon(WeaponItem weapon)
     {
+        // If this weapon is already in inventory, remove it first
+        if (_items.Contains(weapon))
+        {
+            _items.Remove(weapon);
+        }
+        
         // Update player's attack power based on the new weapon
         _owner.AttackPower = weapon.DamageRange;
         
