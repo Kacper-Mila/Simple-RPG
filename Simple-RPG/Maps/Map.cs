@@ -1,4 +1,6 @@
-﻿using Simple_RPG.Maps.fields;
+﻿using Simple_RPG.Entities;
+using Simple_RPG.Interfaces;
+using Simple_RPG.Maps.fields;
 using Simple_RPG.UI;
 
 namespace Simple_RPG.Maps;
@@ -71,7 +73,7 @@ public class Map
         }
     }
 
-    public void MovePlayer(ConsoleKey key)
+    public bool MovePlayer(ConsoleKey key, PlayerEntity player)
     {
         var newX = playerX;
         var newY = playerY;
@@ -84,9 +86,33 @@ public class Map
             case ConsoleKey.RightArrow: newX++; break;
         }
 
-        if (!IsWalkable(newX, newY)) return;
+        if (!IsWalkable(newX, newY)) return true;
+        
+        // Check if the new position is an enemy
+        if (grid[newY, newX] is EnemyTile)
+        {
+            // Create a random enemy
+            string[] enemyTypes = { "goblin", "troll", "dragon" };
+            var enemyType = enemyTypes[new Random().Next(enemyTypes.Length)];
+            var enemy = EnemyEntity.CreateEnemy(enemyType);
+            
+            // Start fight
+            var fight = new FightAction(player, enemy);
+            bool playerWon = fight.ExecuteFight();
+            
+            if (!playerWon)
+            {
+                return false; // Game over
+            }
+            
+            // If player won, remove the enemy from the map
+            grid[newY, newX] = new Empty();
+        }
+        
+        // Move player to new position
         playerX = newX;
         playerY = newY;
+        return true;
     }
 
     private bool IsWalkable(int x, int y)
