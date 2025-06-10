@@ -4,6 +4,28 @@
 
 Simple RPG is a text-based dungeon crawler game built in C#. Navigate through dungeons, battle enemies, find and equip weapons, and use items as you explore the ASCII world.
 
+## 🚀 Getting Started
+```
+# Clone the repository
+git clone https://github.com/Kacper-Mila/Simple-RPG.git
+
+# Navigate to the project directory
+cd Simple-RPG
+
+# Build the project
+dotnet build
+
+# Run the game
+dotnet run
+```
+
+## 🧱 Core Assumptions
+- Implement a fully functional console-based game using OOP principles
+- Create intuitive ASCII-based visualization for maps and game elements
+- Design a modular component system with proper encapsulation
+- Apply inheritance, polymorphism, and abstraction throughout the codebase
+- Develop a responsive user interface within the constraints of a console applicatio
+
 ## 🎮 Game Features
 - 🗺️ __Dungeon Exploration__: Navigate through procedurally generated dungeons
 - ⚔️ __Combat System__: Engage in turn-based battles with various enemies
@@ -42,15 +64,15 @@ Simple-RPG/
 |   ├── HealAction.cs            # Heals the player 
 |   └── IAction.cs               # interface for all Actions
 ├── Entities/
-│   ├── Entity.cs                # Base class for all entities
+│   ├── Entity.cs                # Abstract class for all entities
 │   ├── PlayerEntity.cs          # Player character with inventory
 │   └── EnemyEntity.cs           # Enemy types with varying stats
 ├── Items/
-│   ├── Item.cs                  # Base class for all items
+│   ├── Item.cs                  # Abstract class for all items
 |   ├── Potions/
 |   |   └── HealthPotionItem.cs  # Healing consumables
 │   ├── Weapons/
-│   │   ├── WeaponItem.cs        # Base weapon class
+│   │   ├── WeaponItem.cs        # Abstaract weapon class
 │   │   ├── SwordItem.cs         # Sword implementation
 │   │   └── AxeItem.cs           # Axe implementation
 |   ├── Utils/
@@ -68,7 +90,7 @@ Simple-RPG/
 ├── Utils/
 |   ├── MapLoader.cs             # Used to load the map from file
 |   └── Colors.cs                # Used to output strings in color
-└── Game.cs                      # Core game loop
+└── Game.cs                      # Final class
 ```
 
 ## 🎯 Game Flow
@@ -85,18 +107,11 @@ Simple RPG demonstrates several object-oriented programming principles:
 - __Encapsulation__: Protected data with appropriate access modifiers
 - __Composition__: Complex relationships between game elements
 
-## 🚀 Getting Started
-```
-# Clone the repository
-git clone https://github.com/Kacper-Mila/Simple-RPG.git
+## 🏃‍♂️‍➡️ Future improvements
+- __Expanded Content__: The system is designed to easily accommodate more enemy types, weapons, and map features.
+- __Enhanced Game Mechanics__: Addition of experience points, leveling, and character progression would add depth to the gameplay.
+- __Saving and Loading__: Implementation of game state persistence would allow players to continue their adventures across multiple sessions.
+- __Code Reusability__: Some components could be further abstracted to improve reusability across different parts of the application.
 
-# Navigate to the project directory
-cd Simple-RPG
 
-# Build the project
-dotnet build
-
-# Run the game
-dotnet run
-```
-
+The Simple RPG project successfully demonstrates the application of object-oriented programming principles to create an interactive console game with modular, maintainable code. The architecture allows for future expansions while maintaining clean separation of concerns between different game components.
