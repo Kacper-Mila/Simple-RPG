@@ -7,8 +7,9 @@ namespace Simple_RPG;
 
 public sealed class Game
 {
-    private readonly Map _map = new Map(MapLoader.LoadMapFromFile("map1.txt"));
+   private readonly Map _map = new Map(MapLoader.LoadMapFromFile("map1.txt"));
     private PlayerEntity _player;
+    private bool _gameOver = false;
 
     public Game()
     {
@@ -24,14 +25,13 @@ public sealed class Game
 
     private void GameLoop()
     {
-        while (true)
+        while (!_gameOver)
         {
             Console.Clear();
             
             // Display player info above the map
             PlayerInfoUI.DisplayPlayerInfo(_player);
             
-            // Draw the map
             _map.Draw();
             
             Console.WriteLine("\nMove with arrow keys, Q = exit");
@@ -40,11 +40,23 @@ public sealed class Game
             if (key == ConsoleKey.Q)
                 break;
 
-            _map.MovePlayer(key);
+            bool continueGame = _map.MovePlayer(key, _player);
+            
+            if (!continueGame || !_player.IsAlive)
+            {
+                _gameOver = true;
+            }
         }
         
         Console.Clear();
-        Console.WriteLine($"Thanks for playing, {_player.Name}!");
+        if (_gameOver && !_player.IsAlive)
+        {
+            Console.WriteLine("You were defeated! Game Over.");
+        }
+        else
+        {
+            Console.WriteLine($"Thanks for playing, {_player.Name}!");
+        }
         Console.WriteLine("Press any key to exit...");
         Console.ReadKey(true);
     }
