@@ -43,13 +43,12 @@ public static class FightUI
         string[] artLines = enemy.AsciiArt.Split('\n');
         foreach (string line in artLines)
         {
-            if (!string.IsNullOrWhiteSpace(line))
-                DrawBoxContent(line);
+            DrawBoxContent(line.TrimEnd());
         }
 
         // Draw health bar for enemy
         Console.Write("║ Health: ");
-        DrawHealthBar(enemy.HP, enemy.MaxHP, BoxWidth - 11);
+        DrawHealthBar(enemy.HP, enemy.MaxHP, BoxWidth - 12);
         Console.WriteLine(" ║");
 
         DrawBoxLine("╚", "═", "╝");
@@ -66,8 +65,6 @@ public static class FightUI
         DrawBoxContent("[H] Heal");
         DrawBoxLine("╚", "═", "╝");
         Console.ResetColor();
-
-        Console.WriteLine("Choose your action: ");
     }
 
     public static void DrawVictory(EnemyEntity enemy)
